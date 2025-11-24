@@ -1,7 +1,7 @@
-// appointments.js
+// routes/appointments.js
 import express from "express";
-import { db } from "./pool.js";
-import auth from "./auth.js"; // aquí asumo que tu auth.js exporta el middleware
+import { db } from "../database/pool.js";      // ✔ ruta corregida
+import auth from "../middleware/auth.js";      // ✔ ruta corregida
 
 const router = express.Router();
 
@@ -42,6 +42,7 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+// Obtener datos del usuario (ANTES ESTABA AQUÍ)
 router.get("/me", auth, async (req, res) => {
   try {
     const result = await db.query(
@@ -53,6 +54,5 @@ router.get("/me", auth, async (req, res) => {
     res.status(500).json({ message: "Error al obtener usuario" });
   }
 });
-
 
 export default router;
